@@ -5,6 +5,8 @@ import userRouter from './routes/userRouter.js'
 import category from './routes/categoryRouter.js';
 import product from './routes/productRouter.js';
 import salesCategory from './routes/salsesRouter.js'
+import productRouter from './routes/productRouterUser.js'
+import orderRouter from './routes/orderRouter.js'
 
 dotenv.config();
 const app = express();
@@ -24,7 +26,9 @@ connectDB();
 app.use("/api/v1/user", userRouter);
 app.use('/api/v1/categories', category);
 app.use('/api/v1/product', product);
-app.use('/api/v1/sales', salesCategory)
+app.use('/api/v1/sales', salesCategory);
+app.use('/api/v1/products' ,productRouter);
+app.use('api/v1/orders', orderRouter );
 // Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
