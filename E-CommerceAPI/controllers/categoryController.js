@@ -3,7 +3,7 @@ import Category from "../models/modelCotegory.js";
 // Add Category (Admin Only)
 export const addCategory = async (req, res) => {
   try {
-    const { name } = req.body;
+    const { name , description} = req.body;
 
     const categoryExists = await Category.findOne({ name });
     if (categoryExists) return res.status(400).json({ message: "Category already exists" });
@@ -11,7 +11,7 @@ export const addCategory = async (req, res) => {
     const category = new Category({ name });
     await category.save();
 
-    res.status(201).json({ message: "Category added successfully", category });
+    res.status(201).json({ message: "Category added successfully", category ,description });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

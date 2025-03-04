@@ -4,12 +4,12 @@ import Category from "../models/modelCotegory.js";
 // Add Product (Admin Only)
 export const addProduct = async (req, res) => {
   try {
-    const { name, price, description, category, stock, image } = req.body;
+    const { name, price, description, category, stock} = req.body;
 
     const categoryExists = await Category.findById(category);
     if (!categoryExists) return res.status(404).json({ message: "Category not found" });
 
-    const product = new Product({ name, price, description, category, stock, image });
+    const product = new Product({ name, price, description, category, stock });
     await product.save();
 
     res.status(201).json({ message: "Product added successfully", product });
@@ -47,7 +47,7 @@ export const getProductsByCategory = async (req, res) => {
 export const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, price, description, category, stock, image } = req.body;
+    const { name, price, description, category, stock } = req.body;
 
     if (category) {
       const categoryExists = await Category.findById(category);
@@ -56,7 +56,7 @@ export const updateProduct = async (req, res) => {
 
     const updatedProduct = await Product.findByIdAndUpdate(
       id,
-      { name, price, description, category, stock, image },
+      { name, price, description, category, stock},
       { new: true }
     );
 
